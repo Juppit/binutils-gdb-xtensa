@@ -1327,6 +1327,7 @@ eelf32xstormy16.c: $(srcdir)/emulparams/elf32xstormy16.sh \
 
 eelf32xtensa.c: $(srcdir)/emulparams/elf32xtensa.sh $(ELF_DEPS) \
   $(srcdir)/emultempl/xtensaelf.em $(INCDIR)/xtensa-config.h \
+  $(INCDIR)/xtensa-dynconfig.h \
   $(BFDDIR)/elf-bfd.h $(INCDIR)/elf/xtensa.h \
   $(srcdir)/scripttempl/elfxtensa.sc ${GEN_DEPENDS}
 

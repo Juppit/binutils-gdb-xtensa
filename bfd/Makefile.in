@@ -789,6 +789,7 @@ BFD32_BACKENDS = \
 	vms-misc.lo \
 	xcofflink.lo \
 	xsym.lo \
+	xtensa-config.lo \
 	xtensa-isa.lo \
 	xtensa-modules.lo
 
@@ -980,6 +981,7 @@ BFD32_BACKENDS_CFILES = \
 	vms-misc.c \
 	xcofflink.c \
 	xsym.c \
+	xtensa-config.c \
 	xtensa-isa.c \
 	xtensa-modules.c
 
@@ -1661,6 +1663,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vms-misc.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xcofflink.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xsym.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xtensa-config.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xtensa-isa.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xtensa-modules.Plo@am__quote@
 

@@ -28,7 +28,7 @@
 #include "dwarf2dbg.h"
 #include "xtensa-istack.h"
 #include "struc-symbol.h"
-#include "xtensa-config.h"
+#include "xtensa-dynconfig.h"
 #include "elf/xtensa.h"
 
 /* Provide default values for new configuration settings.  */

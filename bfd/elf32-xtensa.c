@@ -30,7 +30,7 @@
 #include "elf/xtensa.h"
 #include "splay-tree.h"
 #include "xtensa-isa.h"
-#include "xtensa-config.h"
+#include "xtensa-dynconfig.h"
 
 #define XTENSA_NO_NOP_REMOVAL 0
 
