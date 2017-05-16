@@ -51,7 +51,7 @@
 
 #include "xtensa-isa.h"
 #include "xtensa-tdep.h"
-#include "xtensa-config.h"
+#include "xtensa-dynconfig.h"
 #include <algorithm>
 
 
@@ -3184,6 +3184,15 @@ xtensa_derive_tdep (struct gdbarch_tdep *tdep)
 /* Module "constructor" function.  */
 
 extern struct gdbarch_tdep xtensa_tdep;
+static struct gdbarch_tdep *xtensa_config_get_tdep (void)
+{
+  static struct gdbarch_tdep *tdep;
+
+  if (!tdep)
+    tdep = (struct gdbarch_tdep *) xtensa_load_config ("xtensa_tdep",
+						       &xtensa_tdep);
+  return tdep;
+}
 
 static struct gdbarch *
 xtensa_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
@@ -3196,7 +3205,7 @@ xtensa_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
   /* We have to set the byte order before we call gdbarch_alloc.  */
   info.byte_order = XCHAL_HAVE_BE ? BFD_ENDIAN_BIG : BFD_ENDIAN_LITTLE;
 
-  tdep = &xtensa_tdep;
+  tdep = xtensa_config_get_tdep ();
   gdbarch = gdbarch_alloc (&info, tdep);
   xtensa_derive_tdep (tdep);
 

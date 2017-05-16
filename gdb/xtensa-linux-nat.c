@@ -44,6 +44,18 @@
    Keeping these definitions separately allows to introduce
    hardware-specific overlays.  */
 #include "xtensa-xtregs.c"
+#include "xtensa-dynconfig.h"
+
+static xtensa_regtable_t *xtensa_config_get_regmap_table (void)
+{
+  static xtensa_regtable_t *regtable;
+
+  if (!regtable)
+    regtable = (xtensa_regtable_t *) xtensa_load_config
+      ("xtensa_regmap_table", &xtensa_regmap_table);
+
+  return regtable;
+}
 
 void
 fill_gregset (const struct regcache *regcache,
@@ -228,7 +240,7 @@ fetch_xtregs (struct regcache *regcache, int regnum)
   if (ptrace (PTRACE_GETXTREGS, tid, 0, (long)&xtregs) < 0)
     perror_with_name (_("Couldn't get extended registers"));
 
-  for (ptr = xtensa_regmap_table; ptr->name; ptr++)
+  for (ptr = xtensa_config_get_regmap_table (); ptr->name; ptr++)
     if (regnum == ptr->gdb_regnum || regnum == -1)
       regcache_raw_supply (regcache, ptr->gdb_regnum,
 			   xtregs + ptr->ptrace_offset);
@@ -244,7 +256,7 @@ store_xtregs (struct regcache *regcache, int regnum)
   if (ptrace (PTRACE_GETXTREGS, tid, 0, (long)&xtregs) < 0)
     perror_with_name (_("Couldn't get extended registers"));
 
-  for (ptr = xtensa_regmap_table; ptr->name; ptr++)
+  for (ptr = xtensa_config_get_regmap_table (); ptr->name; ptr++)
     if (regnum == ptr->gdb_regnum || regnum == -1)
       regcache_raw_collect (regcache, ptr->gdb_regnum,
 			    xtregs + ptr->ptrace_offset);
@@ -313,7 +325,7 @@ _initialize_xtensa_linux_nat (void)
   /* Calculate the number range for extended registers.  */
   xtreg_lo = 1000000000;
   xtreg_high = -1;
-  for (ptr = xtensa_regmap_table; ptr->name; ptr++)
+  for (ptr = xtensa_config_get_regmap_table (); ptr->name; ptr++)
     {
       if (ptr->gdb_regnum < xtreg_lo)
 	xtreg_lo = ptr->gdb_regnum;
